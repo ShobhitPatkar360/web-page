@@ -1,0 +1,4 @@
+ERROR
+1. this.stack.push(layer) => write const router=express.Router(); instead of const router=express.Router;
+2. const connectDatabase=require("./database/database"); mei connectDatabase halke dikh raha tha => write  connectDatabase()
+3. body is undefined => write app.use(express.json()); in app.js before require the productRoutes
