@@ -1,6 +1,7 @@
-const mongoose=require("mongoose");
+// mongoose is used to connect to database and validate the data before saving to database
+const mongoose=require("mongoose");// here mongoose is used to create the schema
 
-const productSchema=mongoose.Schema({
+const productSchema=mongoose.Schema({ // productSchema represents all the schema of database
     name:{
         type:String,
         require:[true,"please enter the product name"]
@@ -62,8 +63,9 @@ const productSchema=mongoose.Schema({
     ],
     createdAt:{
         type:Date,
-        default:Date.now()
+        default:Date.now() // timestamp datatype => it will take input automatically
     }
 })
 
+// exporting the schema to productController.js because function to take data will going to define there
 module.exports=mongoose.model("products",productSchema);
