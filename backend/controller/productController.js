@@ -1,7 +1,8 @@
+//contain function definitions
 const Products=require("./../modules/productModule");
 const express=require("express");
 const app=express();
-
+app.use(express.json());
 
 // body should be difined
 // app.use(express.json());
@@ -41,10 +42,7 @@ exports.getTesting=(req,res)=>{
 // }
 
 exports.createProduct=async(req,res,next)=>{
-    console.log("from create products",req.body);
-    
-    
-    
+    console.log("Showing the body",req.body);
     const product=await Products.create(req.body)
 
     res.status(201).json({
@@ -53,3 +51,75 @@ exports.createProduct=async(req,res,next)=>{
     })
 }
 
+exports.getAllProducts=async(req,res,next)=>{
+    const products= await Products.find();
+    res.status(200).json({
+        success:true,
+        products
+    })
+}
+
+// for updating the product
+exports.updateProduct=async(req,res,next)=>{
+    // checking the presence of product
+    let product= await Products.findById(req.body._id);
+
+    console.log(req.body._id)
+
+    if(!product) { // if product not there product=> null
+        return res.status(404).json({
+            success:false,
+            message:"product not found"
+        })
+    }
+
+    // update => find by id + update by body
+    product=await Products.findByIdAndUpdate(req.body._id,req.body,
+        {   // no logics
+            new:true,
+            runValidators:true,
+            useFindAndModify:false
+        })
+
+        res.status(200).json({
+            success:true,
+            product
+        })
+}
+
+// function for deleting the product
+exports.deleteProduct=async(req,res,next)=> {
+    let product=await Products.findById(req.body._id);
+    
+    if(!product) {
+        return res.status(404).json({
+            success:false,
+            message:"product not found"
+        })
+    }
+
+    await product.remove();
+    
+    res.status(200).json({
+        success:true
+    })
+}
+
+//function define to get the details of the product
+exports.getProductDetails=async(req,res,next)=> {
+    const product=await Products.findById(req.body._id);
+    console.log(`what in req.body._id ${req.body._id}`);
+    console.log(`what in product ${product}`);
+
+    if(!product) {
+        return res.status(404).json({
+            success:false,
+            message: "product not fount"
+        })
+    }
+
+    res.status(200).json({
+        success:true,
+        product
+    })
+}

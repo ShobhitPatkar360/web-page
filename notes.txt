@@ -2,3 +2,10 @@ ERROR
 1. this.stack.push(layer) => write const router=express.Router(); instead of const router=express.Router;
 2. const connectDatabase=require("./database/database"); mei connectDatabase halke dikh raha tha => write  connectDatabase()
 3. body is undefined => write app.use(express.json()); in app.js before require the productRoutes
+
+
+part 4 errors
+201 ok to insert the data
+200 ok to display the data
+404 client side error data not found
+400 client slide error bad request
