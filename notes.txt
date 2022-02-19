@@ -11,3 +11,11 @@ part 4 errors
 400 client slide error bad request
 
 part 5 error handeling
+    1. Error handler middleware runs only after app.use() due to routing purpose
+    2. TypeError: err.status is not a function, arre pagle err nhi res.status hota hay
+    3. Writing /product after api in app.js (aware about future errors)
+    4. Uncaught exceptions => When TypeError is found then server is crashed, we just want want to switch off the server when this error is found
+        hence to achieve the such purpose we use process.on("uncaughtException")
+    5. Forcefully Shutting down the server process.exit(1)
+
+    6. Similarly process.on("unhandledRejection")

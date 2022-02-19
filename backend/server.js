@@ -16,3 +16,11 @@ const port=process.env.PORT;
 app.listen(port,()=> {
     console.log(`running in port number ${port}`);
 })
+
+// handeling unhandeled promises if we change the link of database from database from database.js then ths error handler comes in the picture
+
+process.on("unhandledRejection",(err)=>{
+    console.log("error message=>",err.message);
+    console.log("Shutting down the Server...");
+    process.exit(1);
+})

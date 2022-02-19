@@ -33,8 +33,11 @@ exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
 
 // Showing the list of all products all details
 exports.getAllProducts=catchAsyncErrors(async(req,res,next)=>{
+    // For Pagination
+    const productPerPage=5;
+        
     // understand for searching req.body=>input, Product.fint()=> output
-    const apifeature=new ApiFeature(Products.find(),req.body).search();
+    const apifeature=new ApiFeature(Products.find(),req.query).search().filter().pagination(productPerPage);
 
     // const products= await Products.find(); // if product is founded all its details will be stored in  products variable
     const products= await apifeature.query; // get the filtered data from apifeature.query 
@@ -52,10 +55,11 @@ exports.updateProduct=catchAsyncErrors(async(req,res,next)=>{
     console.log(req.body._id)
 
     if(!product) { // if product not there product=> null
-        return res.status(404).json({ // showing output from server in json format
-            success:false,
-            message:"product not found"
-        })
+        
+        // using the error middleware                                 // return res.status(404).json({ // showing output from server in json format
+        return next(new ErrorHandler("product not found",404));     //     success:false,
+                                                                     //     message:"product not found"
+                                                                        // })
     }
 
     // update => find by id + update by body
@@ -76,11 +80,9 @@ exports.updateProduct=catchAsyncErrors(async(req,res,next)=>{
 exports.deleteProduct=catchAsyncErrors(async(req,res,next)=> {
     let product=await Products.findById(req.body._id);
     
-    if(!product) { // if product not there product=> null
-        return res.status(404).json({
-            success:false,
-            message:"product not found"
-        })
+    if(!product) { 
+        //using the error middleware
+        return  next(new ErrorHandler("product not found",404));
     }
 
     await product.remove(); // No need to return the deleted data
@@ -95,10 +97,9 @@ exports.getProductDetails=catchAsyncErrors(async(req,res,next)=> {
     const product=await Products.findById(req.body._id);
 
     if(!product) { // if product not there product=> null
-        return res.status(404).json({
-            success:false,
-            message: "product not fount"
-        })
+        
+        //using the error middleware
+        return  next(new ErrorHandler("product not found",404));
     }
 
     res.status(200).json({

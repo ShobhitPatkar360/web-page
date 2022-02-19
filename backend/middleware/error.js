@@ -5,10 +5,10 @@ const ErrorHandler=require("./../util/errorHandler");
 module.exports=(err,req,res,next)=> {
     err.statusCode=err.statusCode||500; //err ka stauts code
     err.message=err.message||"internal server error"; //err ka message
-
-    // unknown
-    err.status(err.statusCode).json({
+    
+    // following code show the error in form of response
+    res.status(err.statusCode).json({
         success:false,
-        err:err.stack
+        message:err.message
     })
 }
