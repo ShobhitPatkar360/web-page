@@ -9,6 +9,6 @@ module.exports=(err,req,res,next)=> {
     // following code show the error in form of response
     res.status(err.statusCode).json({
         success:false,
-        message:err.message
+        message:err.stack
     })
 }

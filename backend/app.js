@@ -1,20 +1,22 @@
+// basically execution starts from here (it seems)
 const express=require("express");
 const app=express();
 
 //handeling ucaught exceptions
-process.on("uncaughtException",(err)=>{
-    console.log("error message=>",err.message);
-    console.log("Shutting Down the server...");
-    process.exit(1);
-})
+// process.on("uncaughtException",(err)=>{
+//     console.log("error message=>",err.message);
+//     console.log("Shutting Down the server...");
+//     process.exit(1);
+// })
 
 // body should be difined
 app.use(express.json());
 // uncaught exception handeling testing
 // console.log(shobhit)
 
-// importing routes
+// importing routes of Product and user
 const products=require("./routes/productRoutes");
+const users=require("./routes/userRoutes");
 
 // for making query
 // app.use("/",(req,res,next) => {
@@ -27,8 +29,9 @@ const products=require("./routes/productRoutes");
 // })
 
 
-// very special function but unknown, all routing starts from here (also very dagerous functon sp experience)
+// all routing starts or used from here 
 app.use("/api/product",products);
+app.use("/app/user",users);
 
 // middleware for error, ruquire once, work on all modules, always place after app.use()
 const errormiddleware=require("./middleware/error");

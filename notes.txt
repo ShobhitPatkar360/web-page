@@ -19,3 +19,35 @@ part 5 error handeling
     5. Forcefully Shutting down the server process.exit(1)
 
     6. Similarly process.on("unhandledRejection")
+
+part 6 password encription and authentication
+    1. Functions used in password encription
+        a. userSchema.pre("save",async function(next){
+                if(!this.isModified("password")) {
+                    next();
+                } 
+                this.password=await bcrypt.hash(this.password,10);
+            })
+
+        b. Checking the password
+            const isPasswordCorrect=await user.comparePassword(password);
+
+    2. Functions used for authentication
+        a. Token creation function
+            userSchema.methods.getJWTToken=function(){
+                return jwt.sign({id:this._id},process.env.JWT_SECRET_KEY,{
+                 expiresIn:process.env.JWT_EXPIRES
+                 })
+                }
+
+        b. Calling function to generate Token
+            const token=user.getJWTToken();
+        c. return token
+            res.status(201).json({
+            success:true,
+            token
+
+        d. token verification
+
+
+Errors in part 6
