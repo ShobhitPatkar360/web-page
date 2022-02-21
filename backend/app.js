@@ -2,6 +2,10 @@
 const express=require("express");
 const app=express();
 
+// requiring the cookie-parser
+const cookieparser=require("cookie-parser")
+app.use(cookieparser());
+
 //handeling ucaught exceptions
 // process.on("uncaughtException",(err)=>{
 //     console.log("error message=>",err.message);

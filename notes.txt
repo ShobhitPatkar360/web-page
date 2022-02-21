@@ -5,8 +5,8 @@ ERROR
 
 
 part 4 errors
-201 ok to insert the data
-200 ok to display the data
+201 ok to insert the data, register new user successful
+200 ok to display the data, existing user successful
 404 client side error data not found
 400 client slide error bad request
 
@@ -49,5 +49,18 @@ part 6 password encription and authentication
 
         d. token verification
 
+    3. Cookie expiration convention
+        n sec = n* 1000
+        n min = n* 60 * 1000
+        n hour = n * 60 * 60 * 1000
+        n days = n * 24 * 60 * 60 * 1000
+        n weeks = n * 7 * 24 * 60 * 60 * 1000
+    4. Promise and response from database is almost same thing
+
+QUESTIONS FROM PART 6   
+    1. Why do we make password select:false => when we use findById(<some constant>.id) then reply comes form database which should not include password
 
 Errors in part 6
+
+    1. Token is not coming as object from api => use cookie-parser on in app.js() and use as app.use(cookieparser());
+    2. 

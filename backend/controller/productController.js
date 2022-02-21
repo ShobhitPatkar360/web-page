@@ -1,3 +1,5 @@
+/* here function is definef for routing purpose */
+
 //require the ApiFeature class for searching
 const ApiFeature=require("./../middleware/apifeature");
 
@@ -7,6 +9,8 @@ const catchAsyncErrors=require("./../middleware/catchAsyncErrors");
 
 //contain function definitions
 const Products=require("./../modules/productModule");
+
+// require the express for routing
 const express=require("express");
 const app=express();
 
@@ -22,7 +26,7 @@ exports.getTesting=(req,res)=>{
 
 //creating new product
 exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
-    console.log("Showing the body",req.body);
+    console.log("Showing the body",req.body);// Show everyting when new product is created
     const product=await Products.create(req.body) //req.body contain input from API
     // when new product is created all values are stored in product variable ( returns promise)
     res.status(201).json({
@@ -36,7 +40,7 @@ exports.getAllProducts=catchAsyncErrors(async(req,res,next)=>{
     // For Pagination
     const productPerPage=5;
         
-    // understand for searching req.body=>input, Product.fint()=> output
+    // understand for searching req.body=>input, Product.find()=> output
     const apifeature=new ApiFeature(Products.find(),req.query).search().filter().pagination(productPerPage);
 
     // const products= await Products.find(); // if product is founded all its details will be stored in  products variable
@@ -69,7 +73,7 @@ exports.updateProduct=catchAsyncErrors(async(req,res,next)=>{
             runValidators:true,
             useFindAndModify:false
         })
-
+        // Sending response to api
         res.status(200).json({
             success:true,
             product // Showing details using promise
@@ -92,7 +96,7 @@ exports.deleteProduct=catchAsyncErrors(async(req,res,next)=> {
     })
 })
 
-//function define to get the details of the product
+//function define to get the details of single product
 exports.getProductDetails=catchAsyncErrors(async(req,res,next)=> {
     const product=await Products.findById(req.body._id);
 
@@ -101,7 +105,7 @@ exports.getProductDetails=catchAsyncErrors(async(req,res,next)=> {
         //using the error middleware
         return  next(new ErrorHandler("product not found",404));
     }
-
+    //showing response to API
     res.status(200).json({
         success:true,
         product // Showing details using promise

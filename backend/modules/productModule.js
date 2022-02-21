@@ -1,7 +1,10 @@
+/* Here basically we made a schema to store the details of product */
+
 // mongoose is used to connect to database and validate the data before saving to database
 const mongoose=require("mongoose");// here mongoose is used to create the schema
 
-const productSchema=mongoose.Schema({ // productSchema represents all the schema of database
+// productSchema represents all the schema of database
+const productSchema=mongoose.Schema({ 
     name:{
         type:String,
         require:[true,"please enter the product name"]

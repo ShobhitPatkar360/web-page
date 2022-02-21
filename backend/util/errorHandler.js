@@ -1,4 +1,4 @@
-// inherithing the parent class (Error)
+// inherithing the parent class (Error) and creating own function to handle the error
 class ErrorHandler extends Error{
     constructor(message,statusCode) { //when error will occour this constructor will be called
         super(message); // used for display message
@@ -7,4 +7,6 @@ class ErrorHandler extends Error{
     }
 }
 
+
+// exporting our error handler
 module.exports=ErrorHandler;
